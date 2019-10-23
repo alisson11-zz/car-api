@@ -2,6 +2,7 @@ package com.fictiusclean.car.api.controllers;
 
 import static java.math.BigDecimal.valueOf;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.comparesEqualTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -55,6 +56,7 @@ public class CarControllerTest {
 
 		assertThat( response.getStatusCode(), equalTo( HttpStatus.CREATED ) );
 		CarDTO resultDTO = response.getBody();
+		assertThat( resultDTO, notNullValue() );
 		assertThat( resultDTO.getName(), equalTo( FIRST_NAME ) );
 		assertThat( resultDTO.getModel(), equalTo( MODEL ) );
 		assertThat( resultDTO.getBrand(), equalTo( BRAND ) );
@@ -73,7 +75,6 @@ public class CarControllerTest {
 		assertThat( detailsResult.getStatusCode(), equalTo( HttpStatus.OK ) );
 		List<CarDetailsResponseDTO> resultListDTO = detailsResult.getBody();
 		assertThat( resultListDTO, hasSize( 2 ) );
-		CarDetailsResponseDTO responseDTO = resultListDTO.get( 0 );
 		assertValues( resultListDTO.get( 0 ), FIRST_NAME, FIRST_YEAR, valueOf( 24.464D ), valueOf( 97.122D ) );
 		assertValues( resultListDTO.get( 1 ), SECOND_NAME, SECOND_YEAR, valueOf( 32.431D ), valueOf( 128.751D ) );
 	}
@@ -95,8 +96,8 @@ public class CarControllerTest {
 	private ResponseEntity<List<CarDetailsResponseDTO>> doRetrieveDetails() {
 		return restTemplate.exchange( "/v1/cars/consumption/details",
 				HttpMethod.POST,
-				new HttpEntity( buildRequest() ),
-				new ParameterizedTypeReference<List<CarDetailsResponseDTO>>() {
+				new HttpEntity<>( buildRequest() ),
+				new ParameterizedTypeReference<>() {
 				} );
 	}
 
