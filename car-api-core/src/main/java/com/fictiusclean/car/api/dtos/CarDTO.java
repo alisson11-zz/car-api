@@ -26,9 +26,7 @@ public class CarDTO {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private String manufacturingDate;
 
-	@JsonFormat(shape = JsonFormat.Shape.NUMBER)
 	private BigDecimal averageCityConsumption;
 
-	@JsonFormat(shape = JsonFormat.Shape.NUMBER)
 	private BigDecimal averageHighwayConsumption;
 }
