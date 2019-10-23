@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fictiusclean.car.api.dtos.CarDTO;
+import com.fictiusclean.car.api.dtos.CarDetailsRequestDTO;
 import com.fictiusclean.car.api.services.CarService;
 
 @RestController
@@ -22,5 +23,10 @@ public class CarController {
 	@PostMapping
 	public ResponseEntity save(@RequestBody CarDTO dto) {
 		return new ResponseEntity( carService.save( dto ), HttpStatus.CREATED );
+	}
+
+	@PostMapping("/consumption/details")
+	public ResponseEntity retrieveDetails(@RequestBody CarDetailsRequestDTO request) {
+		return new ResponseEntity( carService.retrieveTotalExpenses( request ), HttpStatus.OK );
 	}
 }
