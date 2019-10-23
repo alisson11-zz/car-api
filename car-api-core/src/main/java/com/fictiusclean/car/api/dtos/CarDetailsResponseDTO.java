@@ -18,6 +18,6 @@ public class CarDetailsResponseDTO {
 	private String brand;
 	private String model;
 	private int year;
-	private BigDecimal spentFuelTotalQuantity;
-	private BigDecimal spentFuelTotalValue;
+	private BigDecimal totalFuelLitersSpentQuantity;
+	private BigDecimal totalFuelExpenseValue;
 }

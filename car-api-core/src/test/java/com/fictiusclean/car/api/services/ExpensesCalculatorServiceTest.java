@@ -42,8 +42,8 @@ public class ExpensesCalculatorServiceTest {
 		assertThat( responseDTO.getBrand(), equalTo( BRAND ) );
 		assertThat( responseDTO.getModel(), equalTo( MODEL ) );
 		assertThat( responseDTO.getYear(), equalTo( 1996 ) );
-		assertThat( responseDTO.getSpentFuelTotalQuantity(), comparesEqualTo( BigDecimal.valueOf( 24.464D ) ) );
-		assertThat( responseDTO.getSpentFuelTotalValue(), comparesEqualTo( BigDecimal.valueOf( 97.122D ) ) );
+		assertThat( responseDTO.getTotalFuelLitersSpentQuantity(), comparesEqualTo( BigDecimal.valueOf( 24.464D ) ) );
+		assertThat( responseDTO.getTotalFuelExpenseValue(), comparesEqualTo( BigDecimal.valueOf( 97.12D ) ) );
 	}
 
 	private Car buildCar() {

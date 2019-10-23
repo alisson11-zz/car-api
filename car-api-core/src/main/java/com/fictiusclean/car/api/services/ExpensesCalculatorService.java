@@ -23,7 +23,7 @@ public class ExpensesCalculatorService {
 	public List<CarDetailsResponseDTO> retrieveDetails(List<Car> carList, CarDetailsRequestDTO request) {
 		List<CarDetailsResponseDTO> responseDTOList = new ArrayList();
 		carList.forEach( car -> calculate( car, request, responseDTOList ) );
-		responseDTOList.sort( Comparator.comparing( CarDetailsResponseDTO::getSpentFuelTotalValue ) );
+		responseDTOList.sort( Comparator.comparing( CarDetailsResponseDTO::getTotalFuelExpenseValue ) );
 		return responseDTOList;
 	}
 
@@ -40,8 +40,8 @@ public class ExpensesCalculatorService {
 				.brand( car.getBrand() )
 				.model( car.getModel() )
 				.year( LocalDate.ofInstant( car.getManufacturingDate().toInstant(), ZoneId.systemDefault() ).getYear() )
-				.spentFuelTotalQuantity( totalSpentFuel )
-				.spentFuelTotalValue( multiply( totalSpentFuel, request.getFuelPrice() ) )
+				.totalFuelLitersSpentQuantity( totalSpentFuel )
+				.totalFuelExpenseValue( multiply( totalSpentFuel, request.getFuelPrice(), 2 ) )
 				.build() );
 	}
 
@@ -53,8 +53,8 @@ public class ExpensesCalculatorService {
 		return firstValue.add( secondValue );
 	}
 
-	private BigDecimal multiply(BigDecimal value, BigDecimal multiplyFactor) {
-		return round( value.multiply( multiplyFactor ) );
+	private BigDecimal multiply(BigDecimal value, BigDecimal multiplyFactor, int scale) {
+		return value.multiply( multiplyFactor ).setScale( scale, RoundingMode.HALF_EVEN );
 	}
 
 	private BigDecimal round(BigDecimal value) {

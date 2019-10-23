@@ -75,18 +75,18 @@ public class CarControllerTest {
 		assertThat( detailsResult.getStatusCode(), equalTo( HttpStatus.OK ) );
 		List<CarDetailsResponseDTO> resultListDTO = detailsResult.getBody();
 		assertThat( resultListDTO, hasSize( 2 ) );
-		assertValues( resultListDTO.get( 0 ), FIRST_NAME, FIRST_YEAR, valueOf( 24.464D ), valueOf( 97.122D ) );
-		assertValues( resultListDTO.get( 1 ), SECOND_NAME, SECOND_YEAR, valueOf( 32.431D ), valueOf( 128.751D ) );
+		assertValues( resultListDTO.get( 0 ), FIRST_NAME, FIRST_YEAR, valueOf( 24.464D ), valueOf( 97.12D ) );
+		assertValues( resultListDTO.get( 1 ), SECOND_NAME, SECOND_YEAR, valueOf( 32.431D ), valueOf( 128.75D ) );
 	}
 
-	private void assertValues(CarDetailsResponseDTO responseDTO, String name, int year, BigDecimal cityConsumption,
-			BigDecimal highwayConsumption) {
+	private void assertValues(CarDetailsResponseDTO responseDTO, String name, int year, BigDecimal totalFuelQuantity,
+			BigDecimal totalSpentValue) {
 		assertThat( responseDTO.getName(), equalTo( name ) );
 		assertThat( responseDTO.getModel(), equalTo( MODEL ) );
 		assertThat( responseDTO.getBrand(), equalTo( BRAND ) );
 		assertThat( responseDTO.getYear(), equalTo( year ) );
-		assertThat( responseDTO.getSpentFuelTotalQuantity(), comparesEqualTo( cityConsumption ) );
-		assertThat( responseDTO.getSpentFuelTotalValue(), equalTo( highwayConsumption ) );
+		assertThat( responseDTO.getTotalFuelLitersSpentQuantity(), comparesEqualTo( totalFuelQuantity ) );
+		assertThat( responseDTO.getTotalFuelExpenseValue(), equalTo( totalSpentValue ) );
 	}
 
 	private ResponseEntity<CarDTO> doPost(CarDTO carDTO) {
